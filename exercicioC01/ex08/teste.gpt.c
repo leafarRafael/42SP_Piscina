@@ -155,18 +155,52 @@ void quickSort(int *arr, int size) {
 }
 
 // Implementação do seu algoritmo personalizado
-void sort(int *tab, int size) {
-    int i, j, x;
-    for (i=2; i<=size; i++){
-        x = tab[i];
-        j=i-1;
-        tab[0] = x; 
-        while (x < tab[j]){
-            tab[j+1] = tab[j];
-            j--;
+void    troca(int *nbr1, int *nbr2)
+{
+    int aux;
+
+    aux = 0;
+    aux = *nbr1;
+    *nbr1 = *nbr2;
+    *nbr2 = aux;
+
+}
+
+int     ft_partition(int *nbr, int left, int ringht)
+{
+   int i;
+   int pivo;
+   int pos;
+
+   i = ringht;
+   pivo = nbr[left];
+   pos = ringht + 1;
+
+    while (i >= left)
+    {
+        if (nbr[i] >= pivo)
+        {
+            pos--;
+            troca(&nbr[i], &nbr[pos]);
         }
-        tab[j+1] = x;
+        i--;
     }
+
+    return (pos);
+}
+
+void ft_quick_sort(int *nbr, int letf, int right)
+{
+    int nb_help;
+
+    nb_help = 0;
+    if (letf < right)
+    {
+        nb_help = ft_partition(nbr, letf, right);
+        ft_quick_sort(nbr, letf, nb_help -1);
+        ft_quick_sort(nbr, nb_help +1, right);
+    }
+
 
 }
 
@@ -228,7 +262,7 @@ int main() {
     // Seu algoritmo personalizado
     copyArray(arr, arr_copy, size);
     start = clock();
-    sort(arr_copy, size);
+    ft_quick_sort(arr, 0,  size);
     end = clock();
     cpu_time_used = ((double)(end - start)) / CLOCKS_PER_SEC;
     printf("Seu Algoritmo Personalizado: %f segundos\n", cpu_time_used);

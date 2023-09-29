@@ -6,12 +6,13 @@
 /*   By: rafael <rafael@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 15:06:32 by rafael            #+#    #+#             */
-/*   Updated: 2023/09/19 10:49:14 by rafael           ###   ########.fr       */
+/*   Updated: 2023/09/27 15:21:44 by rafael           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 #include <stdlib.h>
+#include <stdio.h>
 
 void	ft_putchar(char c)
 {
@@ -41,26 +42,31 @@ void    ft_selection_sort(int *tab, int size)
 {
     int i;
     int j;
-    int sort;
+    int nb;
+    int trocas;
 
-    sort = 0;
+
     i = 0;
-    j = 0;
-    while (i <= size-1)
+    trocas = 0;
+    j = 1;
+    while (i < size)
     {
-        while (j <= size-1)
+        j = i+1;
+        while (j < size)
         {
-            if (tab[i] < tab[j])
+            if (tab[i] > tab[j])
             {
-                sort = tab[i];
+                nb = tab[i];
                 tab[i] = tab[j];
-                tab[j] = sort;
+                tab[j]= nb;
+                trocas++;
             }
             j++;
         }
-        j = 0;
         i++;
     }
+
+    printf("trocas = %d\n\n", trocas);
     i = 0;
     while(i < size)
     {
@@ -73,18 +79,8 @@ void    ft_selection_sort(int *tab, int size)
 int main()
 {
     int size;
-    size = 10;
-    int nbr[10];
-    nbr[0] = 5;
-    nbr[1] = 4;
-    nbr[2] = 2;
-    nbr[3] = 7;
-    nbr[4] = 8;
-    nbr[5] = 9;
-    nbr[6] = 1;
-    nbr[7] = 3;
-    nbr[8] = 6;
-    nbr[9] = 0;
+    size = 15;
+    int nbr[16] = {5, 4, 2, 7, 8, 9, 1, 3, 6, 0, 15, 13, 11, 12, 10, 14};
     ft_selection_sort(nbr, size);
 
 }
